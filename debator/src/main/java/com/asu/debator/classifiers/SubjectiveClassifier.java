@@ -19,13 +19,13 @@ public class SubjectiveClassifier {
 	public static Annotation classifySentence(String sentence_left, String sentence, String sentence_right){
 		Integer strongClues = getNumOfStrongSubClues(sentence);
 		
-		Integer weakClues_left = getNumOfWeakSubClues(sentence_left);
+		Integer clues_left = getNumOfWeakSubClues(sentence_left) + getNumOfStrongSubClues(sentence_left);
 		Integer weakClues = getNumOfWeakSubClues(sentence);
-		Integer weakClues_right = getNumOfWeakSubClues(sentence_right);
+		Integer clues_right = getNumOfWeakSubClues(sentence_right) + getNumOfStrongSubClues(sentence_right);
 		
 		if(strongClues >= 2 || weakClues >= 3){
 			return Annotation.OPINION;
-		}else if((weakClues_left + weakClues + weakClues_right) <= 1){
+		}else if((clues_left + weakClues + strongClues + clues_right) <= 1){
 			return Annotation.FACT;
 		}else{
 			return Annotation.NONE;

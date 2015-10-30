@@ -1,0 +1,70 @@
+package com.asu.debator.objects;
+
+import edu.stanford.nlp.ling.CoreLabel;
+
+public class AnnotatedWord {
+
+	private String word;
+	private ANNOTATIONS annotation;
+	public enum ANNOTATIONS {
+		F, O, N
+	};
+	
+	public AnnotatedWord(String word, String annotation) {
+		this.word = word;
+		setAnnotation(annotation);
+	}
+	public AnnotatedWord(CoreLabel coreLabel, String annotation) {
+		this.word = coreLabel.toString();
+		setAnnotation(annotation);
+	}
+	public String getWord() {
+		return word;
+	}
+	public void setWord(String word) {
+		this.word = word;
+	}
+	public ANNOTATIONS getAnnotation() {
+		return annotation;
+	}
+	public void setAnnotation(String annotation) {
+		
+		if(ANNOTATIONS.F.toString().equals(annotation))
+			this.annotation = ANNOTATIONS.F;
+		else if (ANNOTATIONS.O.toString().equals(annotation))
+			this.annotation = ANNOTATIONS.O;
+		else 
+			this.annotation = ANNOTATIONS.N;
+	}
+	@Override
+	public String toString() {
+		return "AnnotatedWord [word=" + word + ", annotation=" + annotation + "]";
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((annotation == null) ? 0 : annotation.hashCode());
+		result = prime * result + ((word == null) ? 0 : word.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AnnotatedWord other = (AnnotatedWord) obj;
+		if (annotation != other.annotation)
+			return false;
+		if (word == null) {
+			if (other.word != null)
+				return false;
+		} else if (!word.equals(other.word))
+			return false;
+		return true;
+	}
+	
+}

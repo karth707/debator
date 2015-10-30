@@ -23,10 +23,10 @@ public class SubjectiveClassifier {
 		Integer weakClues = getNumOfWeakSubClues(sentence);
 		Integer weakClues_right = getNumOfWeakSubClues(sentence_right);
 		
-		if(strongClues >= 2 || weakClues >=3){
-			return Annotation.FACT;
-		}else if((weakClues_left + weakClues + weakClues_right) > 1){
+		if(strongClues >= 2 || weakClues >= 3){
 			return Annotation.OPINION;
+		}else if((weakClues_left + weakClues + weakClues_right) <= 1){
+			return Annotation.FACT;
 		}else{
 			return Annotation.NONE;
 		}

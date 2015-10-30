@@ -1,7 +1,5 @@
 package com.asu.debator.objects;
 
-import edu.stanford.nlp.ling.CoreLabel;
-
 public class AnnotatedWord {
 
 	private String word;
@@ -9,10 +7,6 @@ public class AnnotatedWord {
 	
 	public AnnotatedWord(String word, String annotation) {
 		this.word = word;
-		setAnnotation(annotation);
-	}
-	public AnnotatedWord(CoreLabel coreLabel, String annotation) {
-		this.word = coreLabel.toString();
 		setAnnotation(annotation);
 	}
 	public String getWord() {

@@ -19,7 +19,9 @@ public class NaiveBayesClassifier {
 	
 	private static String TRAIN_FILE_PATH = "C:\\Users\\spid\\Desktop\\banHomeWork.txt";
 	private static String ANNOTATION_DELIMITER = "<-->";
-	private static Map<AnnotatedWord, Integer> trainedData = new HashMap<AnnotatedWord, Integer>();
+	private static Map<AnnotatedWord, Integer> trainedAnnotatedData = new HashMap<AnnotatedWord, Integer>();
+	private static Map<String, Integer> trainedWords = new HashMap<String, Integer>();
+	private static Map<AnnotatedWord, Double> probabilities = new HashMap<AnnotatedWord, Double>();
 	
 	public static void trainClassifier(){
 	
@@ -33,16 +35,27 @@ public class NaiveBayesClassifier {
 		String sentence = "", text = "", annotation = "";
 		
 		try {
+			int count = 0;
 			while((sentence = inputBufferedReader.readLine()) != null){
 				text = sentence.split(ANNOTATION_DELIMITER)[0];
 				annotation = sentence.split(ANNOTATION_DELIMITER)[1];
 				PTBTokenizer<CoreLabel> ptbt = new PTBTokenizer<CoreLabel>(new StringReader(text), 
 																			new CoreLabelTokenFactory(), "");
-				while(ptbt.hasNext())
-					addOrIncrement(new AnnotatedWord(ptbt.next(), annotation));
+				while(ptbt.hasNext()){
+					CoreLabel label = ptbt.next();
+					addOrIncrement(new AnnotatedWord(label, annotation));
+					if(trainedWords.containsKey(label))
+							trainedWords.put(label.toString(), trainedWords.get(label) + 1);
+					else
+						trainedWords.put(label.toString(), 1);
+				}
+					
 			}
-			System.out.println(trainedData.size());
-			System.out.println(trainedData.toString());
+			for(AnnotatedWord key : trainedAnnotatedData.keySet())
+				count += trainedAnnotatedData.get(key);
+			
+			System.out.println(trainedAnnotatedData.size() + " - " + trainedWords.size() + " - " + count);
+			System.out.println(trainedAnnotatedData.toString());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,10 +63,10 @@ public class NaiveBayesClassifier {
 	}
 	
 	public static void addOrIncrement(AnnotatedWord word){
-		if(trainedData.containsKey(word))
-			trainedData.put(word, trainedData.get(word)+1);
+		if(trainedAnnotatedData.containsKey(word))
+			trainedAnnotatedData.put(word, trainedAnnotatedData.get(word)+1);
 		else
-			trainedData.put(word, 1);
+			trainedAnnotatedData.put(word, 1);
 	}
 	
 }

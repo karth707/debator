@@ -5,10 +5,7 @@ import edu.stanford.nlp.ling.CoreLabel;
 public class AnnotatedWord {
 
 	private String word;
-	private ANNOTATIONS annotation;
-	public enum ANNOTATIONS {
-		F, O, N
-	};
+	private Annotation annotation;
 	
 	public AnnotatedWord(String word, String annotation) {
 		this.word = word;
@@ -24,17 +21,17 @@ public class AnnotatedWord {
 	public void setWord(String word) {
 		this.word = word;
 	}
-	public ANNOTATIONS getAnnotation() {
+	public Annotation getAnnotation() {
 		return annotation;
 	}
 	public void setAnnotation(String annotation) {
 		
-		if(ANNOTATIONS.F.toString().equals(annotation))
-			this.annotation = ANNOTATIONS.F;
-		else if (ANNOTATIONS.O.toString().equals(annotation))
-			this.annotation = ANNOTATIONS.O;
+		if(Annotation.F.toString().equals(annotation))
+			this.annotation = Annotation.F;
+		else if (Annotation.O.toString().equals(annotation))
+			this.annotation = Annotation.O;
 		else 
-			this.annotation = ANNOTATIONS.N;
+			this.annotation = Annotation.N;
 	}
 	@Override
 	public String toString() {

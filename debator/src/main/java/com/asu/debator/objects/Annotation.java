@@ -2,9 +2,9 @@ package com.asu.debator.objects;
 
 public enum Annotation {
 	
-	F("fact"),
-	O("opinion"),
-	N("none");
+	F("F"),
+	O("O"),
+	N("N");
 	
 	private final String annotattion;
 	

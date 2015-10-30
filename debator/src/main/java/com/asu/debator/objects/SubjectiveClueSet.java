@@ -1,10 +1,10 @@
 package com.asu.debator.objects;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,11 +24,13 @@ public class SubjectiveClueSet {
 		weakClues = new HashSet<String>();
 		strongClues = new HashSet<String>();
 		try {
-			BufferedReader reader = new BufferedReader(new FileReader(new File(mpqa_subjective_cluesFILE)));
+			InputStream fileStream = SubjectiveClueSet.class.getResourceAsStream(mpqa_subjective_cluesFILE);
+			BufferedReader reader = new BufferedReader(new InputStreamReader(fileStream));
 			String line;
 			while((line=reader.readLine())!=null){
 				SubjectiveClue clue = new SubjectiveClue();
 				String[] terms = line.split(" ");
+				if(terms.length!=6) continue;
 				
 				SubjectiveClueType type = SubjectiveClueType.getSubjectiveClueType(terms[0].split("=")[1]);
 				clue.setSubjectiveClueType(type);

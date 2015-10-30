@@ -2,9 +2,9 @@ package com.asu.debator.objects;
 
 public enum Annotation {
 	
-	F("F"),
-	O("O"),
-	N("N");
+	FACT("fact"),
+	OPINION("opinion"),
+	NONE("none");
 	
 	private final String annotattion;
 	
@@ -19,11 +19,11 @@ public enum Annotation {
 	public static Annotation getAnnotation(String annotation){
 		switch(annotation){
 		case "fact":
-			return F;
+			return FACT;
 		case "opinion":
-			return O;
+			return OPINION;
 		case "none":
-			return N;
+			return NONE;
 		default:
 			return null;
 		}

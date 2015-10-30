@@ -1,4 +1,4 @@
-package com.asu.debator;
+package com.asu.debator.classifiers;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

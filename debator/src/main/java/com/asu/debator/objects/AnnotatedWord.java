@@ -9,6 +9,10 @@ public class AnnotatedWord {
 		this.word = word;
 		setAnnotation(annotation);
 	}
+	public AnnotatedWord(String word, Annotation annotation) {
+		this.word = word;
+		this.annotation = annotation;
+	}
 	public String getWord() {
 		return word;
 	}

@@ -38,7 +38,7 @@ public class SubjectiveClassifier {
 		if(sentence == null || sentence.equals("")){
 			return strongClues;
 		}
-		for(String token: Tokenizer.tokenize(sentence)){
+		for(String token: Tokenizer.wordTokenizer(sentence)){
 			if(SubjectiveClueSet.getInstance().getStrongClues().contains(token)){
 				strongClues++;
 			}
@@ -51,7 +51,7 @@ public class SubjectiveClassifier {
 		if(sentence == null || sentence.equals("")){
 			return weakClues;
 		}
-		for(String token: Tokenizer.tokenize(sentence)){
+		for(String token: Tokenizer.wordTokenizer(sentence)){
 			if(SubjectiveClueSet.getInstance().getWeakClues().contains(token)){
 				weakClues++;
 			}

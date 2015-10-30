@@ -20,12 +20,12 @@ public class AnnotatedWord {
 	}
 	public void setAnnotation(String annotation) {
 		
-		if(Annotation.F.toString().equals(annotation))
-			this.annotation = Annotation.F;
-		else if (Annotation.O.toString().equals(annotation))
-			this.annotation = Annotation.O;
+		if(Annotation.FACT.toString().equals(annotation))
+			this.annotation = Annotation.FACT;
+		else if (Annotation.OPINION.toString().equals(annotation))
+			this.annotation = Annotation.OPINION;
 		else 
-			this.annotation = Annotation.N;
+			this.annotation = Annotation.NONE;
 	}
 	@Override
 	public String toString() {

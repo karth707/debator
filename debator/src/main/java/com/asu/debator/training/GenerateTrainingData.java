@@ -25,7 +25,7 @@ public class GenerateTrainingData {
 	
 	public static void generate(String inputPath, String outputPath){
 		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outputPath)));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outputPath), true));
 			List<String> inputSentences = Tokenizer.sentenceTokenizer(inputPath);
 			if(inputSentences.size()<3){
 				logger.error("Not enough training data");
@@ -48,17 +48,26 @@ public class GenerateTrainingData {
 		}
 	}
 	
+	
+	/*
+	 * Pass the input and output paths as a part of arguments. For ex:
+	 * /Users/KartheekGanesh/Desktop/NLPCorpora/
+	 * /Users/KartheekGanesh/Desktop/NLPCorpora_Tagged/
+	 */
 	public static void main(String[] args){
 		BasicConfigurator.configure();
 		org.apache.log4j.Logger.getRootLogger().setLevel(Level.INFO);
-		String outputPath = "/Users/KartheekGanesh/Desktop/NLPCorpora_Tagged/";
+		String inputPath = args[0];
+		String outputPath = args[1];
 		try {
-			Files.walk(Paths.get("/Users/KartheekGanesh/Desktop/NLPCorpora")).forEach(inputPath -> {
-			    if (Files.isRegularFile(inputPath)) {
-			    	logger.info("Processing: {}", inputPath.getFileName().toString());
-			    	GenerateTrainingData.generate(inputPath.toString(), outputPath 
-			    			+ inputPath.getFileName().toString().split(".txt")[0]
-			    			+ "_tagged.txt");
+			Files.walk(Paths.get(inputPath)).forEach(input -> {
+			    if (Files.isRegularFile(input)) {
+			    	if(!input.getFileName().toString().equals(".DS_Store")){
+			    		logger.info("Processing: {}", input.getFileName().toString());
+			    		GenerateTrainingData.generate(input.toString(), outputPath 
+			    				//+ input.getFileName().toString().split(".txt")[0]
+			    				+ "_tagged.txt");
+			    	}
 			    }
 			});
 		} catch (IOException e) {

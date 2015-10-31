@@ -32,7 +32,6 @@ public class Tokenizer {
 				 output.add(Sentence.listToString(sentence).toString());
 				
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return output;

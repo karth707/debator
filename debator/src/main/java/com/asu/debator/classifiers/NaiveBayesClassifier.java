@@ -99,9 +99,7 @@ public class NaiveBayesClassifier {
 		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter(new File(outputPath)));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 			for(String nextInput : testSentences)
 			{
 				Double opinionProbability = 1.0;
@@ -137,6 +135,10 @@ public class NaiveBayesClassifier {
 					//logger.info("F: {}; O: {}, N: {}", factProbability, opinionProbability, noneProbability);
 				
 			}
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void addOrIncrement(AnnotatedWord word){

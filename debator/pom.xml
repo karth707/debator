@@ -15,6 +15,15 @@
 		<nd4j.version>0.4-rc3.4</nd4j.version>
 		<dl4j.version>0.4-rc3.3</dl4j.version>
 	</properties>
+	<repositories>
+		<repository>
+			<!-- This is a random project on sourceforge I found that happens to have 
+				the Java-ML jars in a maven-friendly format. -->
+			<id>spantus</id>
+			<name>spantus sourceforge</name>
+			<url>http://spantus.sourceforge.net/maven/global/</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<dependency>
@@ -57,11 +66,8 @@
 			<version>2.4</version>
 		</dependency>
 		<!-- Word2Vec -->
-		<!-- <dependency>
-			<groupId>org.deeplearning4j</groupId>
-			<artifactId>deeplearning4j-scaleout-akka-word2vec</artifactId>
-			<version>0.0.3.1</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.deeplearning4j</groupId> <artifactId>deeplearning4j-scaleout-akka-word2vec</artifactId> 
+			<version>0.0.3.1</version> </dependency> -->
 
 		<dependency>
 			<groupId>org.deeplearning4j</groupId>
@@ -78,6 +84,16 @@
 			<artifactId>nd4j-jblas</artifactId>
 			<version>${nd4j.version}</version>
 		</dependency>
-
+		<!-- Java ML -->
+		<!-- <dependency>
+			<groupId>net.sf</groupId>
+			<artifactId>javaml</artifactId>
+			<version>0.1.7</version>
+		</dependency> -->
+		<dependency>
+			<groupId>net.sourceforge</groupId>
+			<artifactId>javaml</artifactId>
+			<version>0.1.5</version>
+		</dependency>
 	</dependencies>
 </project>

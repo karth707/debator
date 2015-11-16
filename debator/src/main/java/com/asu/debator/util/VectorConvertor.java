@@ -30,7 +30,7 @@ public class VectorConvertor {
 	
 	private Logger logger = LoggerFactory.getLogger(VectorConvertor.class);
 	
-	private VectorConvertor(){
+	public VectorConvertor(){
 		logger.info("Generating vectors....");
 		wordVectors = new HashMap<String, double[]>();
 		generateWord2Vec();

@@ -12,6 +12,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<nd4j.version>0.4-rc3.4</nd4j.version>
+		<dl4j.version>0.4-rc3.3</dl4j.version>
 	</properties>
 
 	<dependencies>
@@ -34,7 +36,7 @@
 			<version>3.5.2</version>
 			<classifier>models</classifier>
 		</dependency>
-		
+
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -53,6 +55,28 @@
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.4</version>
+		</dependency>
+		<!-- Word2Vec -->
+		<!-- <dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-scaleout-akka-word2vec</artifactId>
+			<version>0.0.3.1</version>
+		</dependency> -->
+
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-ui</artifactId>
+			<version>${dl4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-nlp</artifactId>
+			<version>${dl4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-jblas</artifactId>
+			<version>${nd4j.version}</version>
 		</dependency>
 
 	</dependencies>

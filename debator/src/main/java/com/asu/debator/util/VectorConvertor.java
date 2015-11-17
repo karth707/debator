@@ -1,6 +1,9 @@
 package com.asu.debator.util;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,9 +23,12 @@ import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.Gson;
+
 public class VectorConvertor {
 
 	private static final String INPUT_PATH = "C:\\Users\\spid\\Desktop\\NLPCorpora_Tagged\\_tagged.txt";//"/Users/KartheekGanesh/Desktop/_tagged.txt";
+	private static final String GENERATED_VECTORS = "/Users/KartheekGanesh/Desktop/trainedWord2Vec.txt";
 	private final int VEC_DIMENTION = 50;
 	
 	public static volatile VectorConvertor instance;
@@ -31,9 +37,14 @@ public class VectorConvertor {
 	private Logger logger = LoggerFactory.getLogger(VectorConvertor.class);
 	
 	public VectorConvertor(){
-		logger.info("Generating vectors....");
 		wordVectors = new HashMap<String, double[]>();
-		generateWord2Vec();
+		if(new File(GENERATED_VECTORS).exists()){
+			logger.info("Populating generated vectors....");
+			populateWordVectors();
+		}else{
+			logger.info("Generating vectors....");
+			generateWord2Vec();
+		}
 	}
 	
 	public static VectorConvertor getInstance(){
@@ -92,13 +103,40 @@ public class VectorConvertor {
 	    }
 	}
 	
+	private void populateWordVectors() {
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(new File(GENERATED_VECTORS)));
+			String line;
+			while((line = reader.readLine())!=null){
+				String[] vectorArray = line.split(" ");
+				if(vectorArray.length==VEC_DIMENTION+1){
+					double[] vectorValues = getVecVals(vectorArray);
+					wordVectors.put(vectorArray[0], vectorValues);
+				}
+			}
+			reader.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private double[] getVecVals(String[] vectorArray) {
+		double[] vector = new double[VEC_DIMENTION];
+		for(int i=1; i<VEC_DIMENTION+1; i++){
+			vector[i-1] = Double.parseDouble(vectorArray[i]);
+		}
+		return vector;
+	}
+
 	public double[] getWordVector(String word){
 		if(wordVectors.containsKey(word)){
 			return wordVectors.get(word);
 		}else if(wordVectors.containsKey(word.toLowerCase())){
 			return wordVectors.get(word.toLowerCase());
 		}else{
-			return new double[VEC_DIMENTION];
+			return null;
 		}
 	}
 	
@@ -109,9 +147,9 @@ public class VectorConvertor {
 		String line;
 		System.out.print("-->");
 		while((line = in.next())!="exit"){
-			System.out.print("-->");
 			double[] vector = VectorConvertor.getInstance().getWordVector(line);
-			System.out.println(vector.length);
+			System.out.println("vector: " + new Gson().toJson(vector));
+			System.out.print("-->");
 		}
 		in.close();
 	}

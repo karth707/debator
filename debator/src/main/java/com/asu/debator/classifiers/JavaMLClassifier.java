@@ -1,11 +1,9 @@
 package com.asu.debator.classifiers;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.asu.debator.objects.Annotation;
@@ -27,9 +25,10 @@ public class JavaMLClassifier {
 	
 	static Dataset data = new DefaultDataset();
 	static Classifier svmClassifier;
+	static VectorConvertor vc = new VectorConvertor();
 	
 	private static void train() {
-		VectorConvertor vc = new VectorConvertor();
+		//VectorConvertor vc = new VectorConvertor();
 		List<Instance> instances = new ArrayList<Instance>();
 		List<String> sentences = Tokenizer.sentenceTokenizer(TRAINING_INPUT_PATH);
 		for(String sentence : sentences){
@@ -47,10 +46,11 @@ public class JavaMLClassifier {
 		data.addAll(instances);
 	}
 	
-	private static void test() {
-		VectorConvertor vc = new VectorConvertor();
+	private static float test() {
+		
 		List<Instance> instances = new ArrayList<Instance>();
 		List<String> sentences = Tokenizer.sentenceTokenizer(TESTING_INPUT_PATH);
+		int correctCount = 0, wrongCount = 0;
 		BufferedWriter writer = null;
 		try {
 			writer = new BufferedWriter(new FileWriter(TESTING_OUTPUT_PATH));
@@ -70,19 +70,27 @@ public class JavaMLClassifier {
 				sentenceVector[i] /= words.size();
 			//instances.add(new DenseInstance(sentenceVector));
 			Annotation classValue = (Annotation) svmClassifier.classify(new DenseInstance(sentenceVector));
+			Annotation actualClassValue = Annotation.getAnnotation(sentence.split("<-->")[1]);
+			if(classValue.equals(actualClassValue))
+			{
+				correctCount++;
+			}
+			else
+			{
+				wrongCount++;
+			}
 			try {
 				writer.write(sentence + "<-->" + classValue.toString() + System.lineSeparator());
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			try {
 				writer.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		return correctCount/(float)(correctCount + wrongCount);
 		
 	}
 	
@@ -91,7 +99,7 @@ public class JavaMLClassifier {
 		train();
 		svmClassifier = new LibSVM();
 		svmClassifier.buildClassifier(data);
-		test();
+		System.out.println("Accuracy - " + test());
 	}
 
 

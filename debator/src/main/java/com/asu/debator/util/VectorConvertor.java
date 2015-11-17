@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 public class VectorConvertor {
 
-	private static final String INPUT_PATH = "/Users/KartheekGanesh/Desktop/_tagged.txt";
+	private static final String INPUT_PATH = "C:\\Users\\spid\\Desktop\\NLPCorpora_Tagged\\_tagged.txt";//"/Users/KartheekGanesh/Desktop/_tagged.txt";
 	private final int VEC_DIMENTION = 50;
 	
 	public static volatile VectorConvertor instance;

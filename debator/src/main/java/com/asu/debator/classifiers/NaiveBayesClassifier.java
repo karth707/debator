@@ -124,11 +124,11 @@ public class NaiveBayesClassifier {
 				}
 					try {
 						if(factProbability > opinionProbability && factProbability > noneProbability)
-							writer.write(nextInput + ANNOTATION_DELIMITER + Annotation.FACT.toString() + "\n");
+							writer.write(nextInput + ANNOTATION_DELIMITER + Annotation.FACT.toString() + System.lineSeparator());
 						else if(opinionProbability > factProbability && opinionProbability > noneProbability)
-							writer.write(nextInput + ANNOTATION_DELIMITER + Annotation.OPINION.toString() + "\n");
+							writer.write(nextInput + ANNOTATION_DELIMITER + Annotation.OPINION.toString() + System.lineSeparator());
 						else
-							writer.write(nextInput + ANNOTATION_DELIMITER + Annotation.NONE.toString() + "\n");
+							writer.write(nextInput + ANNOTATION_DELIMITER + Annotation.NONE.toString() + System.lineSeparator());
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -155,7 +155,7 @@ public class NaiveBayesClassifier {
 		
 		String trainingPath = args[0];
 		String testingPath = args[1];
-		String outputPath = args[2];
+		String outputPath = args[2] + "\\";
 
 		NaiveBayesClassifier nbc = new NaiveBayesClassifier(trainingPath);
 		nbc.trainClassifier();

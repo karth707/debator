@@ -40,7 +40,7 @@ public class GenerateTrainingData {
 				}
 				String sentence_right = (index==inputSentences.size()-1) ? null : inputSentences.get(index+1);
 				Annotation annotation = SubjectiveClassifier.classifySentence(sentence_left, sentence, sentence_right);
-				writer.write(sentence + DELIMITER + annotation.toString() + "\n");
+				writer.write(sentence + DELIMITER + annotation.toString() + System.lineSeparator());
 			}
 			writer.close();
 		} catch (IOException e) {
@@ -58,7 +58,7 @@ public class GenerateTrainingData {
 		BasicConfigurator.configure();
 		org.apache.log4j.Logger.getRootLogger().setLevel(Level.INFO);
 		String inputPath = args[0];
-		String outputPath = args[1];
+		String outputPath = args[1] + "\\";
 		try {
 			Files.walk(Paths.get(inputPath)).forEach(input -> {
 			    if (Files.isRegularFile(input)) {

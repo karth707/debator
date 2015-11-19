@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -28,8 +29,9 @@ import com.google.gson.Gson;
 public class VectorConvertor {
 
 	private static final String INPUT_PATH = "C:\\Users\\spid\\Desktop\\NLPCorpora_Tagged\\_tagged.txt";//"/Users/KartheekGanesh/Desktop/_tagged.txt";
-	private static final String GENERATED_VECTORS = "/Users/KartheekGanesh/Desktop/trainedWord2Vec.txt";
+	private static final String GENERATED_VECTORS = "C:\\Users\\spid\\Documents\\GitHub\\debator\\Files\\trainedWord2Vec.txt";
 	private final int VEC_DIMENTION = 50;
+	private Double smoothingNum = null;
 	
 	public static volatile VectorConvertor instance;
 	private Map<String, double[]> wordVectors;
@@ -136,7 +138,12 @@ public class VectorConvertor {
 		}else if(wordVectors.containsKey(word.toLowerCase())){
 			return wordVectors.get(word.toLowerCase());
 		}else{
-			return null;
+			if(smoothingNum==null){
+				smoothingNum = 1.0/wordVectors.size();
+			}
+			double[] soothingArray = new double[50];
+			Arrays.fill(soothingArray, smoothingNum);
+			return soothingArray;
 		}
 	}
 	

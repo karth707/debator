@@ -20,7 +20,7 @@ import net.sf.javaml.core.Instance;
 public class JavaMLClassifier {
 
 	private final static String TRAINING_INPUT_PATH = "C:\\Users\\spid\\Desktop\\NLPCorpora_Tagged\\_tagged.txt";
-	private final static String TESTING_INPUT_PATH = "C:\\Users\\spid\\Desktop\\NLPCorpora_Tagged\\_tagged.txt";
+	private final static String TESTING_INPUT_PATH = "C:\\Users\\spid\\Desktop\\NLPCorpora_Tagged\\_tagged_test_input.txt";
 	private static final String TESTING_OUTPUT_PATH = "C:\\Users\\spid\\Desktop\\NLPCorpora_Tagged\\_tagged_output.txt";
 	
 	static Dataset data = new DefaultDataset();
@@ -36,6 +36,7 @@ public class JavaMLClassifier {
 			List<String> words = Tokenizer.wordTokenizer(sentence.split("<-->")[0]);
 			for(String word : words){
 				double[] wordVector = vc.getWordVector(word);
+				System.out.println(wordVector.length);
 				for(int i = 0; i < wordVector.length; i++)
 					sentenceVector[i] += wordVector[i];
 			}

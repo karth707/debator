@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
+import org.slf4j.LoggerFactory;
 
 import com.asu.debator.objects.Annotation;
 import com.asu.debator.util.Tokenizer;
@@ -25,11 +26,13 @@ import net.sf.javaml.core.Instance;
 
 public class JavaMLClassifier {
 
-	private final static String TRAINING_INPUT_PATH = "C:\\Users\\spid\\Downloads\\corpora\\corpora\\NLP_SVM_Training\\_tagged.txt";
+	private final static String TRAINING_INPUT_PATH = "C:\\Users\\spid\\Downloads\\corpora\\corpora\\NLP_SVM_Training\\_tagged_training.txt";
 	private final static String TESTING_INPUT_PATH = "C:\\Users\\spid\\Downloads\\corpora\\corpora\\NLP_SVM_Test\\_tagged.txt";
 	private static final String TESTING_OUTPUT_PATH = "C:\\Users\\spid\\Downloads\\corpora\\corpora\\NLP_SVM_Test_Output\\_tagged_output.txt";
 
 	static Dataset data = new DefaultDataset();
+	
+	static org.slf4j.Logger logger = LoggerFactory.getLogger(JavaMLClassifier.class);
 
 	private static void train() {
 		List<Instance> instances = new ArrayList<Instance>();
@@ -79,6 +82,7 @@ public class JavaMLClassifier {
 
 		Classifier svmClassifier = new LibSVM();
 		svmClassifier.buildClassifier(data);
+		logger.info("Classifier built");
 		List<String> sentences = getSentencesFromFile(TESTING_INPUT_PATH);
 		int correctCount = 0, wrongCount = 0;
 		BufferedWriter writer = null;
@@ -105,15 +109,15 @@ public class JavaMLClassifier {
 				wrongCount++;
 			}
 			try {
-				writer.write(sentence + "<-->" + classValue.toString() + System.lineSeparator());
+				writer.write(sentence.split("<-->")[0] + "<-->" + classValue.toString() + System.lineSeparator());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			try {
-				writer.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		}
+		try {
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 		return correctCount / (float) (correctCount + wrongCount);
 
@@ -124,8 +128,7 @@ public class JavaMLClassifier {
 		BasicConfigurator.configure();
 		org.apache.log4j.Logger.getRootLogger().setLevel(Level.INFO);
 		train();
-		test();
-		
+		System.out.println("Trained");
 		System.out.println("Accuracy - " + test());
 	}
 

@@ -59,7 +59,35 @@
 			<artifactId>jwi</artifactId>
 			<version>2.2.3</version>
 		</dependency>
-
+		
+		<!-- WordNet API's -->
+		
+		  <!--  <dependency>
+		      <groupId>junit</groupId>
+		      <artifactId>junit</artifactId>
+		      <version>4.0</version>
+		      <scope>compile</scope>
+		    </dependency>
+		    <dependency>
+		      <groupId>org.xerial</groupId>
+		      <artifactId>sqlite-jdbc</artifactId>
+		      <version>3.7.2</version>
+		    </dependency>
+		   <dependency>
+		      <groupId>edu.cmu.lti</groupId>
+		      <artifactId>jawjaw</artifactId>
+		      <version>1.0.0</version>
+		      <scope>system</scope> 
+		      <systemPath>C:\Users\shruthign3\.m2\repository\edu\cmu\lti\jawjaw\1.0.0\jawjaw-1.0.2.jar</systemPath>
+		    </dependency>
+		   <dependency>
+		      <groupId>edu.cmu.lti</groupId>
+		      <artifactId>ws4j</artifactId>
+		      <version>1.0.1</version>
+		      <scope>system</scope> 
+		      <systemPath>C:\Users\shruthign3\.m2\repository\edu\cmu\lti\ws4j\1.0.1\ws4j-1.0.1.jar</systemPath>
+		    </dependency> -->
+				    
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>

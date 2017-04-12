@@ -121,7 +121,7 @@ public class DebatorApplication {
 		 BufferedWriter writer = null;
 			try {
 				writer = new BufferedWriter(new FileWriter(new File(OUTPUT_FILE_PATH)));
-				writer.write(TOPIC_LABEL);
+				writer.write(TOPIC_LABEL + TOPIC);
 				if(TOPIC_LABEL.equals("pos")){
 					writer.write("Supporting Arguments" + System.lineSeparator() + System.lineSeparator());
 						for(String nextValue : positive)
